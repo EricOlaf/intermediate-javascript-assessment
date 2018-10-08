@@ -17,7 +17,7 @@
 function callBinding(magicAnimals, updateAnimal, id) {
   for (let i = 0; i < magicAnimals.length; i++) {
     if (magicAnimals[i].id === id) {
-      return updateAnimal("Trogdor").bind(magicAnimals[i]);
+      return updateAnimal("Trogdor").bind(this.magicAnimals[i]);
     }
   }
 }
@@ -39,7 +39,7 @@ function applyBinding(magicAnimals, updateAnimal, id) {
   for (let i = 0; i < magicAnimals.length; i++) {
     if (magicAnimals[i].id === id) {
       return updateAnimal(["being majestic", "eating rainbows"]).bind(
-        magicAnimals[i]
+        this.magicAnimals[i]
       );
     }
   }
