@@ -82,10 +82,11 @@ var fairyTale5 = ["daBears", "papaBear", "mamaBear", "babyBear"];
 
 function Vehicle() {
   this.gasRemaining = 100;
-  this.drive = function() {
-    return this.gasRemaining - 25;
-  };
 }
+
+Vehicle.prototype.drive = function() {
+  return (this.gasRemaining -= 25);
+};
 
 let charger = new Vehicle();
 charger.drive();
@@ -121,12 +122,14 @@ mustang.drive();
 // and should neither modify them nor break when encountering them.
 
 String.prototype.grammarPolice = function(str) {
-  var strArray = str.split(" ");
+  var strArray = this.split(" ");
   var newStr = [];
   for (let i = 0; i < strArray.length; i++) {
-    return (newStr =
-      strArray[i].charAt(0).toUpperCase() + strArray[i].slice(1).toLowerCase());
+    newStr.push(
+      strArray[i].charAt(0).toUpperCase() + strArray[i].slice(1).toLowerCase()
+    );
   }
+  return newStr.join(" ");
 };
 
 // *************
@@ -166,5 +169,7 @@ function valueType(a, b) {
 var theAnswer = "Unknown";
 
 function promiseCatcher(par) {
-  par.then((theAnswer = par));
+  par.then(res => {
+    theAnswer = res;
+  });
 }

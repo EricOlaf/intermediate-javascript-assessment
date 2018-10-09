@@ -41,16 +41,15 @@ function noWeakLink() {
   return $http({
     method: "GET",
     url: "/api/users"
-  }).then(function(response) {
-    return (
-      (firstUser = response.data[0]),
-      (thirdUser = response.data[2]),
-      console.log(firstUser, thirdUser)
-    );
-  });
-  // .then(function(response) {
-  //   return (thirdUser = response.data[2]), console.log(thirdUser);
-  // });
+  })
+    .then(res => {
+      firstUser = res.data[0];
+      return res;
+    })
+    .then(res => {
+      thirdUser = res.data[2];
+      return res.data[9];
+    });
 }
 
 // *************
@@ -135,7 +134,11 @@ function accountingOffice(assets) {
 // CODE HERE...
 
 function forgetter(name) {
-  function rememberall(item) {}
+  let remember = [];
+  return function rememberall(item) {
+    remember.push(item);
+    return { name, remember };
+  };
 }
 
 // *************
@@ -163,3 +166,41 @@ function forgetter(name) {
 // NOTE: Neither hunger nor danger should be able to exceed 100 or drop below 0.
 
 // CODE HERE...
+
+function frodo(startingHungerValue, startingDangerValue) {
+  let hungerFrodo = startingHungerValue;
+  let dangerFrodo = startingDangerValue;
+
+  return {
+    dinnerOverFire: function() {
+      hungerFrodo -= 25;
+      dangerFrodo += 40;
+      if (hungerFrodo > 100) {
+        hungerFrodo = 100;
+      } else if (hungerFrodo < 0) {
+        hungerFrodo = 0;
+      }
+      if (dangerFrodo > 100) {
+        dangerFrodo = 100;
+      } else if (dangerFrodo < 0) {
+        dangerFrodo = 0;
+      }
+      return { hunger: hungerFrodo, danger: dangerFrodo };
+    },
+    hidingInBush: function() {
+      hungerFrodo += 35;
+      dangerFrodo -= 20;
+      if (hungerFrodo > 100) {
+        hungerFrodo = 100;
+      } else if (hungerFrodo < 0) {
+        hungerFrodo = 0;
+      }
+      if (dangerFrodo > 100) {
+        dangerFrodo = 100;
+      } else if (dangerFrodo < 0) {
+        dangerFrodo = 0;
+      }
+      return { hunger: hungerFrodo, danger: dangerFrodo };
+    }
+  };
+}
